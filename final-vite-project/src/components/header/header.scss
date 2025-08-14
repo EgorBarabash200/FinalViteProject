@@ -1,0 +1,38 @@
+.headerDiv {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 25px;
+    padding-top: 8px;
+    padding-left: 15%;
+}
+
+.headerOpenSvg {
+    background-image: url(./static/picture/openPerson.svg);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+        background-color: #1677ff;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+}
+
+.headerBasketSvg {
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    padding-left:5px ;
+    background-image: url(./static/picture/basket.svg);
+    background-repeat: no-repeat;
+
+    &:hover {
+        background-color: #1677ff;
+        cursor: pointer;
+        border-radius: 30px;
+    }
+}
