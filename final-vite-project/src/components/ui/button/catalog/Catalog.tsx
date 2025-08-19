@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button} from 'antd';
-import  cl from'./Catalog.module.css'
+import "./catalog.scss"
 const Catalog = () => {
   return (
-   <Button className={cl.catalogBtn} type="primary">Каталог</Button>
+   <Button className="catalogBtn" type="primary">Каталог</Button>
   )
 }
 
