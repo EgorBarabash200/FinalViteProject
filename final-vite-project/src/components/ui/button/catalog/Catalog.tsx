@@ -1,9 +1,22 @@
 import React from 'react'
 import { Button} from 'antd';
 import "./catalog.scss"
-const Catalog = () => {
+
+interface CatalogProps {
+  children: React.ReactNode
+  onClick?: () => void
+  disabled?: boolean
+}
+const Catalog: React.FC<CatalogProps> = ({ children, onClick, disabled }) => {
   return (
-   <Button className="catalogBtn" type="primary">Каталог</Button>
+   <Button 
+     className="catalogBtn" 
+     type="primary" 
+     onClick={onClick}
+     disabled={disabled}
+   >
+     {children}
+   </Button>
   )
 }
 
