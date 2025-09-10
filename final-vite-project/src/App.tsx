@@ -1,16 +1,35 @@
 import React, { useState } from 'react'
 import './App.css'
 import Header from './components/header/Header'
-import LogModal from './logModal/LogModal'
-
+import LogModal from './components/logModal/LogModal'
+import RegistModal from './components/registModal/RegistModal';
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogModalOpen, setIsLogModalOpen] = useState(false);
+  const [isRegistModalOpen, setIsRegistModalOpen] = useState(false);
+  const openLoginModal = () => {
+    setIsLogModalOpen(true);
+    setIsRegistModalOpen(false);
+  }
+  const openRegistModal = () => {
+    setIsLogModalOpen(false);
+    setIsRegistModalOpen(true);
+  }
+  const closeModals = () => {
+    setIsLogModalOpen(false);
+    setIsRegistModalOpen(false);
+  };
   return (
     <div>
-      <Header openModal={() => setIsModalOpen(true)} />
+      <Header openModal={openLoginModal} />
       <LogModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)} />
+        isOpen={isLogModalOpen}
+        openRegist={openRegistModal}
+        onClose={closeModals} />
+      <RegistModal
+        isOpen={isRegistModalOpen}
+        onClose={closeModals}
+        openLogin={openLoginModal}
+      />
     </div>
   )
 }
