@@ -1,14 +1,9 @@
 import React from 'react';
 import FormOpAccunt from '../formOpAccunt/FormOpAccunt';
 import "./logModal.scss"
-interface LogModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  openRegist: () => void;
-}
-const LogModal: React.FC<LogModalProps> = ({ isOpen, onClose, openRegist }) => {
+import type { ILogModalProps } from '../../interface/interface';
+const LogModal: React.FC<ILogModalProps> = ({ isOpen, onClose, openRegist }) => {
   if (!isOpen) return null;
-
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();

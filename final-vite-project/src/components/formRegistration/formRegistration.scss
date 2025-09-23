@@ -18,3 +18,23 @@
         margin-top: 16px;
     }
 }
+
+@media (max-width: 775px) {
+    .formRegistration {
+        gap: 12px;
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .btnRegistForm {
+            flex-direction: column;
+            gap: 10px;
+            
+            button {
+                width: 100%;
+            }
+        }
+    }
+}

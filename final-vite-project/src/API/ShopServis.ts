@@ -1,4 +1,6 @@
-export const postAuthorization = async (logAuthorization) => {
+import type { ILogin, IRegist } from "../interface/interface";
+
+export const postAuthorization = async (logAuthorization: ILogin) => {
     try {
         await fetch("http://localhost:5000/login", {
             method: "POST",
@@ -11,7 +13,7 @@ export const postAuthorization = async (logAuthorization) => {
     }
 }
 
-export const postRegistration = async (useRegistration) =>{
+export const postRegistration = async (useRegistration: IRegist) =>{
     try{
         await fetch("http://localhost:5000/create-client",{
             method: "POST",

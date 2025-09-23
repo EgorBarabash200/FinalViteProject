@@ -41,3 +41,21 @@
         }
     }
 }
+
+@media (max-width: 775px) {
+    .mainModal {
+        .modalContent {
+            width: 90%;
+            max-width: 400px;
+            padding: 16px;
+            margin: 20px;
+        }
+
+        .modalBtn {
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    }
+}

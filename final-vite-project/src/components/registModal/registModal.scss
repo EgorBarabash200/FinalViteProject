@@ -16,8 +16,8 @@
 
     .modalRegistContent {
         width: 500px;
-        max-height: 90vh; // Ограничиваем высоту для больших форм
-        overflow-y: auto; // Добавляем прокрутку при необходимости
+        max-height: 90vh; 
+        overflow-y: auto; 
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -40,6 +40,28 @@
         
         &:hover {
             background: #e0e0e0;
+        }
+    }
+}
+
+@media (max-width: 769px) {
+    .mainRegistModal {
+        align-items: flex-start;
+        padding-top: 40px;
+        
+        .modalRegistContent {
+            width: 90%;
+            max-width: 400px;
+            padding: 16px;
+            margin: 20px;
+            max-height: 80vh;
+        }
+
+        .modalRegistBtn {
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            font-size: 14px;
         }
     }
 }
