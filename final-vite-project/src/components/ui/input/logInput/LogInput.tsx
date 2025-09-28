@@ -1,12 +1,7 @@
 import React from 'react'
 import { Input } from 'antd';
 import './LogInput.scss'
-interface LogInputProps {
-  value?: string;
-  type?: string;
-  placeholder?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
+import type { LogInputProps } from '../../../../interface/interface';
 
 const LogInput: React.FC<LogInputProps> = ({ value, type, placeholder, onChange }) => (
   <Input

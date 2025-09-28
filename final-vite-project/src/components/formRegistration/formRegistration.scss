@@ -10,7 +10,31 @@
         color: #333;
         font-size: 24px;
     }
-    
+
+    .input-field {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 8px;
+        position: relative;
+        margin-right: 8px;
+
+        .validation-message {
+            font-size: 12px;
+            line-height: 1.2;
+            padding: 2px 4px;
+            min-height: 16px;
+
+            &.success {
+                color: #22c55e;
+            }
+
+            &.error {
+                color: #ef4444;
+            }
+        }
+    }
+
     .btnRegistForm {
         display: flex;
         justify-content: space-between;
@@ -22,16 +46,16 @@
 @media (max-width: 775px) {
     .formRegistration {
         gap: 12px;
-        
+
         h2 {
             font-size: 20px;
             margin-bottom: 12px;
         }
-        
+
         .btnRegistForm {
             flex-direction: column;
             gap: 10px;
-            
+
             button {
                 width: 100%;
             }
