@@ -12,6 +12,7 @@ export interface IRegist {
 
 export interface IFormOpAccuntProps {
   openRegist: () => void;
+  onClose: () => void;
 }
 
 export interface IFormRegistrationProps {

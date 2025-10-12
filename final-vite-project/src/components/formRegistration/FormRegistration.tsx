@@ -4,6 +4,8 @@ import Catalog from '../ui/button/catalog/Catalog';
 import './formRegistration.scss'
 import { checkLogin, postRegistration } from '../../API/ShopServis'
 import type { IFormRegistrationProps, IRegist } from '../../interface/interface';
+import { notification } from 'antd';
+import type { NotificationArgsProps } from 'antd';
 
 const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin }) => {
   const handleCancel = () => {
@@ -14,15 +16,55 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
   const [repeatPassword, setRepeatPassword] = useState('');
   const [stateCheckLogin, setStateCheckLogin] = useState(false);
   const [emailError, setEmailError] = useState('');
-  const newUserRegistration = async () => {
-    const useRegistration: IRegist = {
-      login: useReg.login,
-      password: useReg.password,
-      email: useReg.email,
-      phone: useReg.phone,
+  const [isLoading, setIsLoading] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const isFormValid = () => {
+    const isLoginValid = useReg.login.length >= 6 && useReg.login.length <= 15 && !stateCheckLogin;
+    const isPasswordValid = useReg.password.length >= 6 && useReg.password.length <= 15;
+    const isPasswordMatch = useReg.password === repeatPassword
+    const isEmailValid = useReg.email.length > 0 && !emailError && useReg.email.length <= 20;
+    const isPhoneValid = useReg.phone.length === 11;
+    let chekDisabBtn = false;
+    if (isLoginValid && isPasswordValid && isPasswordMatch && isEmailValid && isPhoneValid) {
+      chekDisabBtn = true;
     }
-    await postRegistration(useRegistration);
-    registUser({ login: '', password: '', email: '', phone: '' })
+    return chekDisabBtn
+  };
+
+  const newUserRegistration = async () => {
+    setIsLoading(true);
+    try {
+      const useRegistration: IRegist = {
+        login: useReg.login,
+        password: useReg.password,
+        email: useReg.email,
+        phone: useReg.phone,
+      }
+      await postRegistration(useRegistration);
+      api.success({
+        message: 'Регистрация успешна!',
+        description: 'Теперь вы можете войти в свой аккаунт',
+        placement: 'top', 
+        duration: 4,
+      });
+      registUser({ login: '', password: '', email: '', phone: '' });
+      setRepeatPassword('');
+      setTimeout(() => {
+        onClose();
+        openLogin();
+      }, 2000);
+
+    } catch (error) {
+      api.error({
+        message: 'Ошибка регистрации',
+        description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
+        placement: 'top', 
+        duration: 4,
+      });
+      console.error('Ошибка регистрации:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const CheckLoginRegist = async (event: string) => {
@@ -59,6 +101,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
 
   return (
     <div className='formRegistration'>
+      {contextHolder}
       <h2>Регистрация</h2>
       <div className="input-field">
         <LogInput
@@ -67,7 +110,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
           value={useReg.login}
           onChange={(e) => CheckLoginRegist(e.target.value)}
         />
-        {useReg.login.length >= 5 && useReg.login.length <= 15 && (
+        {useReg.login.length > 5 && useReg.login.length <= 15 && (
           <div className={`validation-message ${stateCheckLogin ? 'error' : 'success'}`}>
             {stateCheckLogin ? 'Логин занят' : '✓'}
           </div>
@@ -80,7 +123,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
           value={useReg.password}
           onChange={e => registUser({ ...useReg, password: e.target.value })}
         />
-         {useReg.password.length >= 5 && useReg.password.length <= 15 && (
+        {useReg.password.length > 5 && useReg.password.length <= 15 && (
           <div className="validation-message success">✓</div>
         )}
       </div>
@@ -91,7 +134,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
           value={repeatPassword}
           onChange={(e) => setRepeatPassword(e.target.value)}
         />
-         {repeatPassword.length >= 5 && repeatPassword.length <= 15 && (
+        {repeatPassword.length > 5 && repeatPassword.length <= 15 && (
           <div className={`validation-message ${passwordsMatch ? 'success' : 'error'}`}>
             {passwordsMatch ? '✓' : 'Пароли не совпадают'}
           </div>
@@ -104,7 +147,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
           value={useReg.email}
           onChange={e => CheckEmailRegist(e.target.value)}
         />
-         {useReg.email.length > 0 && (
+        {useReg.email.length > 0 && (
           <div className={`validation-message ${emailError ? 'error' : 'success'}`}>
             {emailError ? emailError : '✓'}
           </div>
@@ -121,7 +164,10 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
         )}
       </div>
       <div className='btnRegistForm'>
-        <Catalog onClick={newUserRegistration}>Зарегистрировать</Catalog>
+        <Catalog onClick={newUserRegistration}
+          disabled={!isFormValid() || isLoading}>
+          {isLoading ? 'Регистрация...' : 'Зарегистрировать'}
+        </Catalog>
         <Catalog onClick={handleCancel}>Отмена</Catalog>
       </div>
     </div>
