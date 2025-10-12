@@ -5,7 +5,6 @@ import './formRegistration.scss'
 import { checkLogin, postRegistration } from '../../API/ShopServis'
 import type { IFormRegistrationProps, IRegist } from '../../interface/interface';
 import { notification } from 'antd';
-import type { NotificationArgsProps } from 'antd';
 
 const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin }) => {
   const handleCancel = () => {

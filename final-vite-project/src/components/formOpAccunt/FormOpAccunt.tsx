@@ -5,7 +5,7 @@ import Catalog from '../ui/button/catalog/Catalog'
 import { postAuthorization } from '../../API/ShopServis'
 import type { IFormOpAccuntProps, ILogin } from '../../interface/interface'
 import { notification } from 'antd';
-import type { NotificationArgsProps } from 'antd';
+
 
 const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => {
   const [logPasAuthor, useAuthor] = useState({ login: '', password: '' });
