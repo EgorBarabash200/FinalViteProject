@@ -24,22 +24,6 @@
         border-radius: 8px;
         position: relative;
     }
-
-    .modalBtn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        padding: 8px 16px;
-        background: #f0f0f0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        z-index: 1001;
-        
-        &:hover {
-            background: #e0e0e0;
-        }
-    }
 }
 
 @media (max-width: 775px) {
@@ -49,13 +33,6 @@
             max-width: 400px;
             padding: 16px;
             margin: 20px;
-        }
-
-        .modalBtn {
-            top: 10px;
-            right: 10px;
-            padding: 6px 12px;
-            font-size: 14px;
         }
     }
 }

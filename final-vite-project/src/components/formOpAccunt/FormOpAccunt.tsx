@@ -34,7 +34,7 @@ const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => 
         duration: 4,
       });
       useAuthor({ login: '', password: '' });
-       setTimeout(() => {
+      setTimeout(() => {
         onClose();
       }, 2000);
     } catch (error) {
@@ -52,6 +52,7 @@ const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => 
   return (
     <div className='mainForm'>
       {contextHolder}
+      <button className="close-button" onClick={onClose}>×</button>
       <h2>Вход в аккаунт</h2>
       <LogInput
         placeholder='Логин'

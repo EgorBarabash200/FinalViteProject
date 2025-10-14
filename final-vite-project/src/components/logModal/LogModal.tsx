@@ -11,7 +11,6 @@ const LogModal: React.FC<ILogModalProps> = ({ isOpen, onClose, openRegist }) => 
   };
   return (
     <div className='mainModal active' onClick={handleBackdropClick}>
-      <button className='modalBtn' onClick={onClose}>Закрыть</button>
       <div className='modalContent' onClick={e => e.stopPropagation()}>
         <FormOpAccunt onClose={onClose} openRegist={openRegist} />
       </div>

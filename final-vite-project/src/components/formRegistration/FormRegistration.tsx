@@ -43,7 +43,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
       api.success({
         message: 'Регистрация успешна!',
         description: 'Теперь вы можете войти в свой аккаунт',
-        placement: 'top', 
+        placement: 'top',
         duration: 4,
       });
       registUser({ login: '', password: '', email: '', phone: '' });
@@ -57,7 +57,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
       api.error({
         message: 'Ошибка регистрации',
         description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
-        placement: 'top', 
+        placement: 'top',
         duration: 4,
       });
       console.error('Ошибка регистрации:', error);
@@ -101,6 +101,7 @@ const FormRegistration: React.FC<IFormRegistrationProps> = ({ onClose, openLogin
   return (
     <div className='formRegistration'>
       {contextHolder}
+      <button className="close-button" onClick={onClose}>×</button>
       <h2>Регистрация</h2>
       <div className="input-field">
         <LogInput

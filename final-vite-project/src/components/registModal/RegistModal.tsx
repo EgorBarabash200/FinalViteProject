@@ -15,7 +15,6 @@ const RegistModal: React.FC<RegistModalProps> = ({ isOpen, onClose, openLogin })
     };
   return (
     <div className='mainRegistModal active' onClick={handleBackdropClick}>
-      <button className='modalRegistBtn' onClick={onClose}>Закрыть</button>
       <div className='modalRegistContent' onClick={e => e.stopPropagation()}>
         <FormRegistration onClose={onClose} openLogin={openLogin}/>
       </div>
