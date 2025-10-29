@@ -6,7 +6,7 @@ import { postAuthorization } from '../../API/ShopServis'
 import type { IFormOpAccuntProps, ILogin } from '../../interface/interface'
 import { notification } from 'antd';
 
-const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => {
+const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose, setUser }) => {
   const [logPasAuthor, useAuthor] = useState({ login: '', password: '' });
   const [autLoading, setAutLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
@@ -26,7 +26,7 @@ const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => 
         login: logPasAuthor.login,
         password: logPasAuthor.password,
       }
-      await postAuthorization(logAuthorization);
+      const res = await postAuthorization(logAuthorization);
       api.success({
         message: 'Авторизация успешна!',
         description: 'Производим вход в аккаунт',
@@ -34,6 +34,7 @@ const FormOpAccunt: React.FC<IFormOpAccuntProps> = ({ openRegist, onClose }) => 
         duration: 4,
       });
       useAuthor({ login: '', password: '' });
+      setUser(res);
       setTimeout(() => {
         onClose();
       }, 2000);

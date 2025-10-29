@@ -2,7 +2,7 @@ import React from 'react';
 import FormOpAccunt from '../formOpAccunt/FormOpAccunt';
 import "./logModal.scss"
 import type { ILogModalProps } from '../../interface/interface';
-const LogModal: React.FC<ILogModalProps> = ({ isOpen, onClose, openRegist }) => {
+const LogModal: React.FC<ILogModalProps> = ({ isOpen, onClose, openRegist, setUser }) => {
   if (!isOpen) return null;
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -12,7 +12,7 @@ const LogModal: React.FC<ILogModalProps> = ({ isOpen, onClose, openRegist }) => 
   return (
     <div className='mainModal active' onClick={handleBackdropClick}>
       <div className='modalContent' onClick={e => e.stopPropagation()}>
-        <FormOpAccunt onClose={onClose} openRegist={openRegist} />
+        <FormOpAccunt onClose={onClose} openRegist={openRegist} setUser={setUser} />
       </div>
     </div>
   );

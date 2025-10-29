@@ -13,6 +13,7 @@ export interface IRegist {
 export interface IFormOpAccuntProps {
   openRegist: () => void;
   onClose: () => void;
+  setUser: any;
 }
 
 export interface IFormRegistrationProps {
@@ -24,6 +25,7 @@ export interface ILogModalProps {
   isOpen: boolean;
   onClose: () => void;
   openRegist: () => void;
+  setUser: any;
 }
 
 export interface LogInputProps {
@@ -31,4 +33,9 @@ export interface LogInputProps {
   type?: string;
   placeholder?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export interface HeaderProps {
+    openModal: () => void;
+    user: any;
 }

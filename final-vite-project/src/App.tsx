@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/header/Header'
 import LogModal from './components/logModal/LogModal'
@@ -18,13 +18,22 @@ function App() {
     setIsLogModalOpen(false);
     setIsRegistModalOpen(false);
   };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const dataUserLS = localStorage.getItem("userInfo");
+    if (dataUserLS) {
+      setUser(JSON.parse(dataUserLS));
+    }
+  }, [])
   return (
     <div>
-      <Header openModal={openLoginModal} />
+      <Header openModal={openLoginModal} user={user} />
       <LogModal
         isOpen={isLogModalOpen}
         openRegist={openRegistModal}
-        onClose={closeModals} />
+        onClose={closeModals}
+        setUser={setUser} />
       <RegistModal
         isOpen={isRegistModalOpen}
         onClose={closeModals}

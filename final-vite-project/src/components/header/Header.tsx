@@ -2,10 +2,9 @@ import React from 'react'
 import Catalog from '../ui/button/catalog/Catalog'
 import SearchInput from '../ui/input/searchInput/SearchInput'
 import "./header.scss"
-interface HeaderProps {
-    openModal: () => void;
-}
-const Header: React.FC<HeaderProps> = ({ openModal }) => {
+import type { HeaderProps } from '../../interface/interface'
+
+const Header: React.FC<HeaderProps> = ({ openModal, user }) => {
     return (
         <div className="headerDiv">
             <Catalog>Каталог</Catalog>
@@ -16,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ openModal }) => {
                 <div className="mobileOpen" onClick={openModal}>👤</div>
                 <div className="mobileBasket">🛒</div>
             </div>
+            <div> {user?.login}</div>
         </div>
     )
 }
