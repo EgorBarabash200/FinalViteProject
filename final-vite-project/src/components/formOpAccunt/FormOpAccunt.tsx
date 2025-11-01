@@ -5,7 +5,6 @@ import Catalog from '../ui/button/catalog/Catalog';
 import { authStore } from '../../store/indexStore';
 import { observer } from 'mobx-react-lite';
 import { notification } from 'antd';
-
 const FormOpAccunt: React.FC = observer(() => {
   const { 
     loginForm, 
