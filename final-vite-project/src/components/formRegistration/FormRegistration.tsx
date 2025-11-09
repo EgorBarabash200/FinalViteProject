@@ -1,10 +1,9 @@
-import React from 'react';
 import LogInput from '../ui/input/logInput/LogInput';
-import Catalog from '../ui/button/catalog/Catalog';
 import './formRegistration.scss';
 import { authStore } from '../../store/indexStore';
 import { observer } from 'mobx-react-lite';
 import { notification } from 'antd';
+import CustomBtn from '../ui/button/customBtn/CustomBtn';
 
 const FormRegistration: React.FC = observer(() => {
   const {
@@ -36,7 +35,7 @@ const FormRegistration: React.FC = observer(() => {
       {contextHolder}
       <button className="close-button" onClick={closeModals}>×</button>
       <h2>Регистрация</h2>
-      
+
       <div className="input-field">
         <LogInput
           placeholder='Логин'
@@ -50,7 +49,7 @@ const FormRegistration: React.FC = observer(() => {
           </div>
         )}
       </div>
-      
+
       <div className="input-field">
         <LogInput
           placeholder='Пароль'
@@ -62,7 +61,7 @@ const FormRegistration: React.FC = observer(() => {
           <div className="validation-message success">✓</div>
         )}
       </div>
-      
+
       <div className="input-field">
         <LogInput
           placeholder='Повторите пароль'
@@ -76,7 +75,7 @@ const FormRegistration: React.FC = observer(() => {
           </div>
         )}
       </div>
-      
+
       <div className="input-field">
         <LogInput
           placeholder='email'
@@ -90,7 +89,7 @@ const FormRegistration: React.FC = observer(() => {
           </div>
         )}
       </div>
-      
+
       <div className="input-field">
         <LogInput
           placeholder='Телефон'
@@ -102,15 +101,15 @@ const FormRegistration: React.FC = observer(() => {
           <div className="validation-message success">✓</div>
         )}
       </div>
-      
+
       <div className='btnRegistForm'>
-        <Catalog 
+        <CustomBtn
           onClick={register}
           disabled={!isRegistrationFormValid || isLoading}
         >
           {isLoading ? 'Регистрация...' : 'Зарегистрировать'}
-        </Catalog>
-        <Catalog onClick={handleCancel}>Отмена</Catalog>
+        </CustomBtn>
+        <CustomBtn onClick={handleCancel}>Отмена</CustomBtn>
       </div>
     </div>
   );

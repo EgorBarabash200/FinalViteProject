@@ -1,4 +1,3 @@
-import React from 'react';
 import "./registModal.scss";
 import FormRegistration from '../formRegistration/FormRegistration';
 import { authStore } from '../../store/indexStore';

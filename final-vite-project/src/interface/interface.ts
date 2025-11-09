@@ -36,6 +36,28 @@ export interface LogInputProps {
 }
 
 export interface HeaderProps {
-    openModal: () => void;
-    user: any;
+  openModal: () => void;
+  user: any;
+}
+
+export interface CustomBtnProps {
+  children: React.ReactNode
+  onClick?: () => void
+  disabled?: boolean
+}
+
+export interface RegistrationData {
+  login: string;
+  password: string;
+  email: string;
+  phone: string;
+}
+
+export interface LoginData {
+  login: string;
+  password: string;
+}
+
+export interface User {
+  login: string;
 }

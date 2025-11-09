@@ -1,4 +1,3 @@
-import React from 'react'
 import { Input } from 'antd';
 import './LogInput.scss'
 import type { LogInputProps } from '../../../../interface/interface';

@@ -1,4 +1,3 @@
-import React from 'react';
 import FormOpAccunt from '../formOpAccunt/FormOpAccunt';
 import "./logModal.scss";
 import { authStore } from '../../store/indexStore';

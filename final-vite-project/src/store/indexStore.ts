@@ -1,22 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { postAuthorization, postRegistration, checkLogin } from '../API/ShopServis';
 import { notification } from 'antd';
-
-export interface User {
-  login: string;
-}
-
-export interface RegistrationData {
-  login: string;
-  password: string;
-  email: string;
-  phone: string;
-}
-
-export interface LoginData {
-  login: string;
-  password: string;
-}
+import type { LoginData, RegistrationData, User } from '../interface/interface';
 
 class AuthStore {
   user: User | null = null;
@@ -25,7 +10,7 @@ class AuthStore {
   loginForm = { login: '', password: '' };
   registrationForm = { login: '', password: '', email: '', phone: '' };
   repeatPassword = '';
-  
+
   isLoading = false;
   stateCheckLogin = false;
   emailError = '';
@@ -84,8 +69,8 @@ class AuthStore {
   }
   get isLoginFormValid(): boolean {
     const { login, password } = this.loginForm;
-    return login.length >= 6 && login.length <= 15 && 
-           password.length >= 6 && password.length <= 15;
+    return login.length >= 6 && login.length <= 15 &&
+      password.length >= 6 && password.length <= 15;
   }
 
   get isRegistrationFormValid(): boolean {
@@ -104,7 +89,7 @@ class AuthStore {
   }
   checkLoginAvailability = async (login: string) => {
     this.setRegistrationForm('login', login);
-    
+
     if (login.length >= 6 && login.length <= 15) {
       try {
         const res = await checkLogin(login);
@@ -118,12 +103,12 @@ class AuthStore {
   }
   validateEmail = (email: string) => {
     this.setRegistrationForm('email', email);
-    
+
     if (email.length > 20) {
       this.emailError = 'Email не должен превышать 20 символов';
       return;
     }
-    
+
     if (email.length > 0) {
       if (!email.includes('@yandex.ru') && !email.includes('@mail.com')) {
         this.emailError = 'Email должен содержать @yandex.ru или @mail.com';
@@ -142,13 +127,11 @@ class AuthStore {
   }
 
   login = async () => {
-  this.isLoading = true;
-  try {
-    const res = await postAuthorization(this.loginForm);
-    
-    runInAction(() => {
-      if (res && typeof res === 'object' && 'login' in res) {
-        this.setUser(res as User); 
+    this.isLoading = true;
+    try {
+      const res = await postAuthorization(this.loginForm);
+      if (res) {
+        this.user = res;
         notification.success({
           message: 'Авторизация успешна!',
           description: 'Производим вход в аккаунт',
@@ -156,21 +139,11 @@ class AuthStore {
           duration: 4,
         });
         this.resetForms();
-        setTimeout(() => {
-          this.closeModals();
-        }, 2000);
+        this.closeModals();;
       } else {
-        console.warn('Invalid response from postAuthorization:', res);
-        notification.error({
-          message: 'Ошибка данных',
-          description: 'Получены некорректные данные пользователя',
-          placement: 'top',
-          duration: 4,
-        });
+        throw new Error('Получены некорректные данные пользователя')
       }
-    });
-  } catch (error) {
-    runInAction(() => {
+    } catch (error) {
       notification.error({
         message: 'Ошибка авторизации',
         description: 'Неверный логин или пароль',
@@ -178,13 +151,10 @@ class AuthStore {
         duration: 4,
       });
       console.error('Ошибка авторизации:', error);
-    });
-  } finally {
-    runInAction(() => {
+    } finally {
       this.isLoading = false;
-    });
+    }
   }
-}
   register = async () => {
     this.isLoading = true;
     try {
@@ -195,14 +165,9 @@ class AuthStore {
         placement: 'top',
         duration: 4,
       });
-      
-      runInAction(() => {
-        this.resetForms();
-        setTimeout(() => {
-          this.closeModals();
-          this.openLoginModal();
-        }, 2000);
-      });
+      this.resetForms();
+      this.closeModals();
+      this.openLoginModal();
     } catch (error) {
       notification.error({
         message: 'Ошибка регистрации',
@@ -212,9 +177,7 @@ class AuthStore {
       });
       console.error('Ошибка регистрации:', error);
     } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
+      this.isLoading = false;
     }
   }
   resetForms = () => {

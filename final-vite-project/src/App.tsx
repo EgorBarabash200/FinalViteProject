@@ -1,4 +1,3 @@
-
 import './App.css';
 import Header from './components/header/Header';
 import LogModal from './components/logModal/LogModal';

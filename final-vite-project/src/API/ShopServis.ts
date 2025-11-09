@@ -9,14 +9,14 @@ export const postAuthorization = async (logAuthorization: ILogin) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(logAuthorization)
         });
-        if (response) {
+        if (response && response.status === 200) {
             const res = await response.json()
-            const{login} = res.data;
-            localStorage.setItem("userInfo" , JSON.stringify({login}));
-            return {login};
+            const { login } = res.data;
+            localStorage.setItem("userInfo", JSON.stringify({ login }));
+            return { login };
         }
-    } catch (jsonError) {
-        throw new Error('Invalid server response');
+    } catch (e) {
+        console.error(e);
     }
 }
 
@@ -29,7 +29,6 @@ export const postRegistration = async (useRegistration: IRegist) => {
         })
     } catch (e) {
         console.error(e);
-        return null
     }
 }
 
@@ -39,11 +38,10 @@ export const checkLogin = async (login: string) => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        if (res) {
+        if (res && res.status === 200) {
             return res.json();
         }
     } catch (e) {
         console.error(e);
-        return null
     }
 }

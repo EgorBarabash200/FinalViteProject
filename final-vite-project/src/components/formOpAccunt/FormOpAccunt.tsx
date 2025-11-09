@@ -1,14 +1,13 @@
-import React from 'react';
 import LogInput from '../ui/input/logInput/LogInput';
 import './FormOpAccunt.scss';
-import Catalog from '../ui/button/catalog/Catalog';
+import CustomBtn from '../ui/button/customBtn/CustomBtn';
 import { authStore } from '../../store/indexStore';
 import { observer } from 'mobx-react-lite';
 import { notification } from 'antd';
 const FormOpAccunt: React.FC = observer(() => {
-  const { 
-    loginForm, 
-    isLoading, 
+  const {
+    loginForm,
+    isLoading,
     isLoginFormValid,
     setLoginForm,
     login,
@@ -36,12 +35,12 @@ const FormOpAccunt: React.FC = observer(() => {
         onChange={e => setLoginForm('password', e.target.value)}
       />
       <div className='btnForm'>
-        <Catalog
+        <CustomBtn
           onClick={login}
           disabled={!isLoginFormValid || isLoading} >
           {isLoading ? 'Вход...' : 'Войти'}
-        </Catalog>
-        <Catalog onClick={openRegistModal}>Регистрация</Catalog>
+        </CustomBtn>
+        <CustomBtn onClick={openRegistModal}>Регистрация</CustomBtn>
       </div>
     </div>
   );
