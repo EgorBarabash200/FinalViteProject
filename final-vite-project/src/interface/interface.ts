@@ -44,6 +44,7 @@ export interface CustomBtnProps {
   children: React.ReactNode
   onClick?: () => void
   disabled?: boolean
+  loading?: boolean
 }
 
 export interface RegistrationData {

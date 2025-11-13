@@ -7,7 +7,7 @@ import { notification } from 'antd';
 const FormOpAccunt: React.FC = observer(() => {
   const {
     loginForm,
-    isLoading,
+    stateLoad,
     isLoginFormValid,
     setLoginForm,
     login,
@@ -37,8 +37,9 @@ const FormOpAccunt: React.FC = observer(() => {
       <div className='btnForm'>
         <CustomBtn
           onClick={login}
-          disabled={!isLoginFormValid || isLoading} >
-          {isLoading ? 'Вход...' : 'Войти'}
+          disabled={!isLoginFormValid}
+          loading={stateLoad.login} >
+          Войти
         </CustomBtn>
         <CustomBtn onClick={openRegistModal}>Регистрация</CustomBtn>
       </div>

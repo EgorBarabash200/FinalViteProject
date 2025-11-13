@@ -11,7 +11,7 @@ const FormRegistration: React.FC = observer(() => {
     repeatPassword,
     stateCheckLogin,
     emailError,
-    isLoading,
+    stateLoad,
     isRegistrationFormValid,
     passwordsMatch,
     setRegistrationForm,
@@ -105,9 +105,10 @@ const FormRegistration: React.FC = observer(() => {
       <div className='btnRegistForm'>
         <CustomBtn
           onClick={register}
-          disabled={!isRegistrationFormValid || isLoading}
+          disabled={!isRegistrationFormValid}
+          loading={stateLoad.registr}
         >
-          {isLoading ? 'Регистрация...' : 'Зарегистрировать'}
+          Регистрация
         </CustomBtn>
         <CustomBtn onClick={handleCancel}>Отмена</CustomBtn>
       </div>

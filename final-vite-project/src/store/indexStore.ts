@@ -1,17 +1,21 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { postAuthorization, postRegistration, checkLogin } from '../API/ShopServis';
 import { notification } from 'antd';
 import type { LoginData, RegistrationData, User } from '../interface/interface';
 
 class AuthStore {
   user: User | null = null;
-  isLogModalOpen = false;
-  isRegistModalOpen = false;
+  stateModal = {
+    login: false,
+    registr: false,
+  }
   loginForm = { login: '', password: '' };
   registrationForm = { login: '', password: '', email: '', phone: '' };
   repeatPassword = '';
-
-  isLoading = false;
+  stateLoad = {
+    login: false,
+    registr: false
+  }
   stateCheckLogin = false;
   emailError = '';
 
@@ -22,35 +26,23 @@ class AuthStore {
   loadUserFromStorage() {
     const dataUserLS = localStorage.getItem("userInfo");
     if (dataUserLS) {
-      try {
-        this.user = JSON.parse(dataUserLS);
-      } catch (error) {
-        console.error('Error parsing user data from localStorage:', error);
-      }
+      this.user = JSON.parse(dataUserLS);
     }
   }
   openLoginModal = () => {
-    this.isLogModalOpen = true;
-    this.isRegistModalOpen = false;
+    this.stateModal.login = true;
+    this.stateModal.registr = false;
   }
 
   openRegistModal = () => {
-    this.isLogModalOpen = false;
-    this.isRegistModalOpen = true;
+    this.stateModal.login = false;
+    this.stateModal.registr = true;
   }
 
   closeModals = () => {
-    this.isLogModalOpen = false;
-    this.isRegistModalOpen = false;
+    this.stateModal.login = false;
+    this.stateModal.registr = false;
     this.resetForms();
-  }
-  setUser = (user: User | null) => {
-    this.user = user;
-    if (user) {
-      localStorage.setItem("userInfo", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("userInfo");
-    }
   }
 
   logout = () => {
@@ -93,9 +85,7 @@ class AuthStore {
     if (login.length >= 6 && login.length <= 15) {
       try {
         const res = await checkLogin(login);
-        runInAction(() => {
-          this.stateCheckLogin = res.result;
-        });
+        this.stateCheckLogin = res.result;
       } catch (error) {
         console.error('Error checking login:', error);
       }
@@ -108,85 +98,78 @@ class AuthStore {
       this.emailError = 'Email не должен превышать 20 символов';
       return;
     }
-
     if (email.length > 0) {
-      if (!email.includes('@yandex.ru') && !email.includes('@mail.com')) {
-        this.emailError = 'Email должен содержать @yandex.ru или @mail.com';
+      const emailRegex = /^[a-zA-Z0-9._-]+@(yandex\.ru|mail\.com)$/;
+
+      if (!emailRegex.test(email)) {
+        this.emailError = 'Email должен содержать @yandex.ru или @mail.com и оканчиваться на один из этих доменов';
         return;
       }
-      if (email.includes('@yandex.ru') && !email.endsWith('@yandex.ru')) {
-        this.emailError = 'Email должен оканчиваться на @yandex.ru';
-        return;
-      }
-      if (email.includes('@mail.com') && !email.endsWith('@mail.com')) {
-        this.emailError = 'Email должен оканчиваться на @mail.com';
-        return;
-      }
+
       this.emailError = '';
-    }
+    } 
   }
 
-  login = async () => {
-    this.isLoading = true;
-    try {
-      const res = await postAuthorization(this.loginForm);
-      if (res) {
-        this.user = res;
-        notification.success({
-          message: 'Авторизация успешна!',
-          description: 'Производим вход в аккаунт',
-          placement: 'top',
-          duration: 4,
-        });
-        this.resetForms();
-        this.closeModals();;
-      } else {
-        throw new Error('Получены некорректные данные пользователя')
-      }
-    } catch (error) {
-      notification.error({
-        message: 'Ошибка авторизации',
-        description: 'Неверный логин или пароль',
-        placement: 'top',
-        duration: 4,
-      });
-      console.error('Ошибка авторизации:', error);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-  register = async () => {
-    this.isLoading = true;
-    try {
-      await postRegistration(this.registrationForm);
+login = async () => {
+  this.stateLoad.login = true;
+  try {
+    const res = await postAuthorization(this.loginForm);
+    if (res) {
+      this.user = res;
       notification.success({
-        message: 'Регистрация успешна!',
-        description: 'Теперь вы можете войти в свой аккаунт',
+        message: 'Авторизация успешна!',
+        description: 'Производим вход в аккаунт',
         placement: 'top',
         duration: 4,
       });
       this.resetForms();
-      this.closeModals();
-      this.openLoginModal();
-    } catch (error) {
-      notification.error({
-        message: 'Ошибка регистрации',
-        description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
-        placement: 'top',
-        duration: 4,
-      });
-      console.error('Ошибка регистрации:', error);
-    } finally {
-      this.isLoading = false;
+      this.closeModals();;
+    } else {
+      throw new Error('Получены некорректные данные пользователя')
     }
+  } catch (error) {
+    notification.error({
+      message: 'Ошибка авторизации',
+      description: 'Неверный логин или пароль',
+      placement: 'top',
+      duration: 4,
+    });
+    console.error('Ошибка авторизации:', error);
+  } finally {
+    this.stateLoad.login = false;
   }
-  resetForms = () => {
-    this.loginForm = { login: '', password: '' };
-    this.registrationForm = { login: '', password: '', email: '', phone: '' };
-    this.repeatPassword = '';
-    this.stateCheckLogin = false;
-    this.emailError = '';
+}
+register = async () => {
+  this.stateLoad.registr = true;
+  try {
+    await postRegistration(this.registrationForm);
+    notification.success({
+      message: 'Регистрация успешна!',
+      description: 'Теперь вы можете войти в свой аккаунт',
+      placement: 'top',
+      duration: 4,
+    });
+    this.resetForms();
+    this.openLoginModal();
+  } catch (error) {
+    notification.error({
+      message: 'Ошибка регистрации',
+      description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
+      placement: 'top',
+      duration: 4,
+    });
+    console.error('Ошибка регистрации:', error);
+  } finally {
+    this.stateLoad.registr = false;
   }
+}
+resetForms = () => {
+  this.loginForm = { login: '', password: '' };
+  this.registrationForm = { login: '', password: '', email: '', phone: '' };
+  this.repeatPassword = '';
+  this.stateCheckLogin = false;
+  this.emailError = '';
+}
 }
 
 export const authStore = new AuthStore();
