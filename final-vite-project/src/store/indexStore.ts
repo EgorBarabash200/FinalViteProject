@@ -105,7 +105,6 @@ class AuthStore {
         this.emailError = 'Email должен содержать @yandex.ru или @mail.com и оканчиваться на один из этих доменов';
         return;
       }
-
       this.emailError = '';
     } 
   }
