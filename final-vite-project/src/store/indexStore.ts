@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { postAuthorization, postRegistration, checkLogin } from '../API/ShopServis';
 import { notification } from 'antd';
-import type { LoginData, RegistrationData, User } from '../interface/interface';
+import type { LoginData, ProfileData, RegistrationData, User } from '../interface/interface';
 
 class AuthStore {
   user: User | null = null;
@@ -12,6 +12,7 @@ class AuthStore {
   }
   loginForm = { login: '', password: '' };
   registrationForm = { login: '', password: '', email: '', phone: '' };
+  profileForm = { login: '', email: '', phone: '' };
   repeatPassword = '';
   stateLoad = {
     login: false,
@@ -61,7 +62,9 @@ class AuthStore {
   setRegistrationForm = (field: keyof RegistrationData, value: string) => {
     this.registrationForm[field] = value;
   }
-
+  setProfileForm = (field: keyof ProfileData, value: string) => {
+    this.profileForm[field] = value;
+  }
   setRepeatPassword = (value: string) => {
     this.repeatPassword = value;
   }
@@ -171,6 +174,7 @@ class AuthStore {
   resetForms = () => {
     this.loginForm = { login: '', password: '' };
     this.registrationForm = { login: '', password: '', email: '', phone: '' };
+    this.profileForm = { login: '', email: '', phone: '' };
     this.repeatPassword = '';
     this.stateCheckLogin = false;
     this.emailError = '';
