@@ -8,6 +8,7 @@ class AuthStore {
   stateModal = {
     login: false,
     registr: false,
+    profile: false,
   }
   loginForm = { login: '', password: '' };
   registrationForm = { login: '', password: '', email: '', phone: '' };
@@ -38,10 +39,15 @@ class AuthStore {
     this.stateModal.login = false;
     this.stateModal.registr = true;
   }
-
+  openProfileModal = () => {
+    this.stateModal.profile = true;
+    this.stateModal.login = false;
+    this.stateModal.registr = false;
+  }
   closeModals = () => {
     this.stateModal.login = false;
     this.stateModal.registr = false;
+    this.stateModal.profile = false;
     this.resetForms();
   }
 
@@ -106,69 +112,69 @@ class AuthStore {
         return;
       }
       this.emailError = '';
-    } 
+    }
   }
 
-login = async () => {
-  this.stateLoad.login = true;
-  try {
-    const res = await postAuthorization(this.loginForm);
-    if (res) {
-      this.user = res;
+  login = async () => {
+    this.stateLoad.login = true;
+    try {
+      const res = await postAuthorization(this.loginForm);
+      if (res) {
+        this.user = res;
+        notification.success({
+          message: 'Авторизация успешна!',
+          description: 'Производим вход в аккаунт',
+          placement: 'top',
+          duration: 4,
+        });
+        this.resetForms();
+        this.closeModals();;
+      } else {
+        throw new Error('Получены некорректные данные пользователя')
+      }
+    } catch (error) {
+      notification.error({
+        message: 'Ошибка авторизации',
+        description: 'Неверный логин или пароль',
+        placement: 'top',
+        duration: 4,
+      });
+      console.error('Ошибка авторизации:', error);
+    } finally {
+      this.stateLoad.login = false;
+    }
+  }
+  register = async () => {
+    this.stateLoad.registr = true;
+    try {
+      await postRegistration(this.registrationForm);
       notification.success({
-        message: 'Авторизация успешна!',
-        description: 'Производим вход в аккаунт',
+        message: 'Регистрация успешна!',
+        description: 'Теперь вы можете войти в свой аккаунт',
         placement: 'top',
         duration: 4,
       });
       this.resetForms();
-      this.closeModals();;
-    } else {
-      throw new Error('Получены некорректные данные пользователя')
+      this.openLoginModal();
+    } catch (error) {
+      notification.error({
+        message: 'Ошибка регистрации',
+        description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
+        placement: 'top',
+        duration: 4,
+      });
+      console.error('Ошибка регистрации:', error);
+    } finally {
+      this.stateLoad.registr = false;
     }
-  } catch (error) {
-    notification.error({
-      message: 'Ошибка авторизации',
-      description: 'Неверный логин или пароль',
-      placement: 'top',
-      duration: 4,
-    });
-    console.error('Ошибка авторизации:', error);
-  } finally {
-    this.stateLoad.login = false;
   }
-}
-register = async () => {
-  this.stateLoad.registr = true;
-  try {
-    await postRegistration(this.registrationForm);
-    notification.success({
-      message: 'Регистрация успешна!',
-      description: 'Теперь вы можете войти в свой аккаунт',
-      placement: 'top',
-      duration: 4,
-    });
-    this.resetForms();
-    this.openLoginModal();
-  } catch (error) {
-    notification.error({
-      message: 'Ошибка регистрации',
-      description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
-      placement: 'top',
-      duration: 4,
-    });
-    console.error('Ошибка регистрации:', error);
-  } finally {
-    this.stateLoad.registr = false;
+  resetForms = () => {
+    this.loginForm = { login: '', password: '' };
+    this.registrationForm = { login: '', password: '', email: '', phone: '' };
+    this.repeatPassword = '';
+    this.stateCheckLogin = false;
+    this.emailError = '';
   }
-}
-resetForms = () => {
-  this.loginForm = { login: '', password: '' };
-  this.registrationForm = { login: '', password: '', email: '', phone: '' };
-  this.repeatPassword = '';
-  this.stateCheckLogin = false;
-  this.emailError = '';
-}
 }
 
 export const authStore = new AuthStore();

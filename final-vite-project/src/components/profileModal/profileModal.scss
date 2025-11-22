@@ -1,0 +1,32 @@
+.profile-modal {
+  .profile-content {
+    padding: 10px 0;
+  }
+
+  .profile-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  }
+
+  .field-label {
+    font-weight: 600;
+    color: #1890ff;
+    min-width: 80px;
+  }
+
+  .field-value {
+    color: #333;
+    text-align: right;
+    flex: 1;
+    margin-left: 16px;
+  }
+}

@@ -6,14 +6,15 @@ import { authStore } from '../../store/indexStore'
 import { Dropdown, Space } from 'antd'
 import { DownOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
+import ProfileModal from '../profileModal/ProfileModal'
 
 const Header = observer(() => {
-  const { user, openLoginModal, logout } = authStore
+  const { user, openLoginModal, logout, openProfileModal } = authStore
   const userMenuItems: MenuProps['items'] = [
     {
       key: '1',
       label: (
-        <div className="user-menu-item">
+        <div className="user-menu-item" onClick={openProfileModal}>
           <UserOutlined className="menu-icon" />
           <span>Профиль</span>
         </div>
@@ -39,8 +40,8 @@ const Header = observer(() => {
         <div className="user-section">
           {/* Десктопная версия */}
           <div className="desktop-user">
-            <Dropdown 
-              menu={{ items: userMenuItems }} 
+            <Dropdown
+              menu={{ items: userMenuItems }}
               placement="bottomRight"
               trigger={['click']}
             >
@@ -56,8 +57,8 @@ const Header = observer(() => {
 
           {/* Мобильная версия для авторизованного пользователя */}
           <div className="mobile">
-            <Dropdown 
-              menu={{ items: userMenuItems }} 
+            <Dropdown
+              menu={{ items: userMenuItems }}
               placement="bottomRight"
               trigger={['click']}
             >
@@ -79,6 +80,7 @@ const Header = observer(() => {
           </div>
         </>
       )}
+      <ProfileModal />
     </div>
   )
 })

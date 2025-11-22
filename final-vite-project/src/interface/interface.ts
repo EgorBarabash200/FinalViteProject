@@ -61,4 +61,6 @@ export interface LoginData {
 
 export interface User {
   login: string;
+  email?: string;
+  phone?: string;
 }
