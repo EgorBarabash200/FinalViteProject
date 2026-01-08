@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { postAuthorization, postRegistration, checkLogin } from '../API/ShopServis';
 import { notification } from 'antd';
-import type { LoginData, ProfileData, RegistrationData, User } from '../interface/interface';
+import type { LoginData, RegistrationData, User } from '../interface/interface';
 
 class AuthStore {
   user: User | null = null;
@@ -12,7 +12,6 @@ class AuthStore {
   }
   loginForm = { login: '', password: '' };
   registrationForm = { login: '', password: '', email: '', phone: '' };
-  profileForm = { login: '', email: '', phone: '' };
   repeatPassword = '';
   stateLoad = {
     login: false,
@@ -30,6 +29,10 @@ class AuthStore {
     if (dataUserLS) {
       this.user = JSON.parse(dataUserLS);
     }
+  }
+   updateUser = (updatedUser: User) => {
+    this.user = updatedUser;
+    localStorage.setItem("userInfo", JSON.stringify(updatedUser));
   }
   openLoginModal = () => {
     this.stateModal.login = true;
@@ -61,9 +64,6 @@ class AuthStore {
   }
   setRegistrationForm = (field: keyof RegistrationData, value: string) => {
     this.registrationForm[field] = value;
-  }
-  setProfileForm = (field: keyof ProfileData, value: string) => {
-    this.profileForm[field] = value;
   }
   setRepeatPassword = (value: string) => {
     this.repeatPassword = value;
@@ -174,7 +174,6 @@ class AuthStore {
   resetForms = () => {
     this.loginForm = { login: '', password: '' };
     this.registrationForm = { login: '', password: '', email: '', phone: '' };
-    this.profileForm = { login: '', email: '', phone: '' };
     this.repeatPassword = '';
     this.stateCheckLogin = false;
     this.emailError = '';

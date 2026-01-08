@@ -70,3 +70,9 @@ export interface User {
   email?: string;
   phone?: string;
 }
+
+export interface ProfileFormData {
+  login: string;
+  email: string;
+  phone: string;
+}

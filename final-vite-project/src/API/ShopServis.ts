@@ -1,4 +1,4 @@
-import type { ILogin, IRegist } from "../interface/interface";
+import type { ILogin, IRegist, ProfileFormData } from "../interface/interface";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -12,7 +12,7 @@ export const postAuthorization = async (logAuthorization: ILogin) => {
         if (response && response.status === 200) {
             const res = await response.json()
             const { login } = res.data;
-            localStorage.setItem("userInfo", JSON.stringify({ login }));
+            localStorage.setItem("userInfo", JSON.stringify(res.data));
             return { login };
         }
     } catch (e) {
@@ -43,5 +43,23 @@ export const checkLogin = async (login: string) => {
         }
     } catch (e) {
         console.error(e);
+    }
+}
+
+export const updateProfile = async (profileData: ProfileFormData) => {
+    try {
+        const response = await fetch(`${apiUrl}/edit-profile`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(profileData)
+        });
+        
+        if (response && response.status === 200) {
+            const res = await response.json();
+            return res;
+        }
+    } catch (e) {
+        console.error('Error updating profile:', e);
+        throw e;
     }
 }
