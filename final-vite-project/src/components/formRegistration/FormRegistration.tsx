@@ -30,6 +30,19 @@ const FormRegistration: React.FC = observer(() => {
     openLoginModal();
   };
 
+  const handlePhoneChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+    const value = e.target.value;
+    const onlyNumbers = value.replace(/[^\d]/g, '');
+    const truncated = onlyNumbers.slice(0,11);  
+    setRegistrationForm('phone', truncated);
+  }
+
+   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const filteredValue = value.replace(/[^a-zA-Z0-9@.\-]/g, '');
+    validateEmail(filteredValue);
+  }
+
   return (
     <div className='formRegistration'>
       {contextHolder}
@@ -81,7 +94,7 @@ const FormRegistration: React.FC = observer(() => {
           placeholder='email'
           type='text'
           value={registrationForm.email}
-          onChange={e => validateEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
         {registrationForm.email.length > 0 && (
           <div className={`validation-message ${emailError ? 'error' : 'success'}`}>
@@ -93,9 +106,9 @@ const FormRegistration: React.FC = observer(() => {
       <div className="input-field">
         <LogInput
           placeholder='Телефон'
-          type='number'
+          type='text'
           value={registrationForm.phone}
-          onChange={e => setRegistrationForm('phone', e.target.value)}
+          onChange={handlePhoneChange}
         />
         {registrationForm.phone.length === 11 && (
           <div className="validation-message success">✓</div>
