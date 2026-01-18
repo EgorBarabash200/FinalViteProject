@@ -1,5 +1,4 @@
-import React from 'react'
-import { Button, Input, Space } from 'antd';
+import { Button, Input } from 'antd';
 import "./searchInput.scss"
 const SearchInput = () => {
     return (

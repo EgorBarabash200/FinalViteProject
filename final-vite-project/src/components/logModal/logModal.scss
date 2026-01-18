@@ -1,0 +1,38 @@
+.mainModal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    &.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modalContent {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+        background: #ffffff;
+        border-radius: 8px;
+        position: relative;
+    }
+}
+
+@media (max-width: 775px) {
+    .mainModal {
+        .modalContent {
+            width: 90%;
+            max-width: 400px;
+            padding: 16px;
+            margin: 20px;
+        }
+    }
+}
