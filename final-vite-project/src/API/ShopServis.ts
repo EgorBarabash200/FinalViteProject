@@ -63,3 +63,20 @@ export const updateProfile = async (profileData: ProfileFormData) => {
         throw e;
     }
 }
+export const catalogShop = async () =>{
+    try{
+        const response = await fetch(`${apiUrl}/categories`,{
+            method: 'GET',
+            headers: { "Content-Type": "application/json" },
+        });
+           if (response.ok) {
+            const data = await response.json();
+            console.log('Данные каталога:', data); 
+            return data; 
+        } else {
+            console.error('Ошибка ответа:', response.status);
+        }
+    }catch(e){
+        console.log(e);
+    }
+}

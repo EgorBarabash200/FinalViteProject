@@ -1,0 +1,78 @@
+.catalog-menu {
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+  
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    padding: 10px 16px;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+    
+    &:hover {
+      background-color: #f0f7ff;
+      color: #1890ff;
+    }
+    
+    .anticon {
+      margin-right: 10px;
+      font-size: 16px;
+    }
+  }
+  
+  .ant-menu-submenu {
+    .ant-menu {
+      background-color: #fafafa;
+    }
+    
+    .ant-menu-item {
+      padding-left: 32px;
+      font-size: 13px;
+    }
+  }
+  
+  .ant-menu-item-group {
+    .ant-menu-item-group-title {
+      padding: 12px 16px 4px;
+      font-weight: 600;
+      color: #666;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .ant-menu-item {
+      padding-left: 32px;
+    }
+  }
+  
+  .ant-menu-item-divider {
+    background-color: #f0f0f0;
+    margin: 8px 0;
+  }
+  
+  // Кастомные стили для популярных категорий
+  .ant-menu-item-group-popular {
+    .ant-menu-item-group-title {
+      color: #ff4d4f;
+    }
+    
+    .ant-menu-item {
+      color: #333;
+      
+      &:hover {
+        color: #1890ff;
+      }
+    }
+  }
+}
+
+// Стили для выпадающего меню
+.catalog-dropdown {
+  .ant-dropdown-menu {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}

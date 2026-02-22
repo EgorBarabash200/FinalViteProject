@@ -1,15 +1,24 @@
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite'
-import CustomBtn from '../ui/button/customBtn/CustomBtn'
 import SearchInput from '../ui/input/searchInput/SearchInput'
+import CatalogMenu from '../catalogmenu/CatalogMenu'
 import "./header.scss"
 import { authStore } from '../../store/indexStore'
-import { Dropdown, Space } from 'antd'
-import { DownOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
+import { Dropdown, Space, Button } from 'antd'
+import { DownOutlined, UserOutlined, LogoutOutlined, AppstoreOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import ProfileModal from '../profileModal/ProfileModal'
 
+
 const Header = observer(() => {
-  const { user, openLoginModal, logout, openProfileModal } = authStore
+  const { user, openLoginModal, logout, openProfileModal } = authStore;
+  const [catalogOpen, setCatalogOpen] = useState(false);
+
+  const onCatalogMenuClick: MenuProps['onClick'] = (e) => {
+    console.log('Клик по пункту каталога: ', e);
+    setCatalogOpen(false);
+  };
+
   const userMenuItems: MenuProps['items'] = [
     {
       key: '1',
@@ -33,7 +42,38 @@ const Header = observer(() => {
 
   return (
     <div className="headerDiv">
-      <CustomBtn>Каталог</CustomBtn>
+
+      <Dropdown
+        dropdownRender={() => (
+          <div className="catalog-dropdown-content">
+            <CatalogMenu
+              onClick={onCatalogMenuClick}
+              style={{ width: 320, maxHeight: '75vh' }}
+            />
+          </div>
+        )}
+        trigger={['click']}
+        placement="bottomLeft"
+        onOpenChange={setCatalogOpen}
+        open={catalogOpen}
+        overlayClassName="catalog-dropdown"
+        overlayStyle={{
+          boxShadow: '0 6px 16px rgba(0, 0, 0, 0.15)',
+          borderRadius: '8px'
+        }}
+      >
+        <Button
+          type="primary"
+          className="catalog-button"
+          icon={<AppstoreOutlined />}
+        >
+          <Space>
+            Каталог
+            <DownOutlined className={`dropdown-arrow ${catalogOpen ? 'open' : ''}`} />
+          </Space>
+        </Button>
+      </Dropdown>
+
       <SearchInput />
 
       {user ? (

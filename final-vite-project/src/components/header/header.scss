@@ -6,6 +6,48 @@
     gap: 25px;
     padding-top: 8px;
     align-items: center;
+
+    .catalog-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 20px;
+        font-weight: 500;
+        background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+        border: none;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 15px;
+        
+        .anticon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .dropdown-arrow {
+            font-size: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+            
+            &.open {
+                transform: rotate(180deg);
+            }
+        }
+        
+        &:hover {
+            background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+        }
+        
+        &:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
+        }
+    }
 }
 
 // Стили для авторизованного пользователя
