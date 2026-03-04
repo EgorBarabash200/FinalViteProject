@@ -69,13 +69,11 @@ export const catalogShop = async () =>{
             method: 'GET',
             headers: { "Content-Type": "application/json" },
         });
-           if (response.ok) {
-            const data = await response.json();
-            console.log('Данные каталога:', data); 
-            return data; 
-        } else {
-            console.error('Ошибка ответа:', response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        const data = await response.json();
+        return data; 
     }catch(e){
         console.log(e);
     }

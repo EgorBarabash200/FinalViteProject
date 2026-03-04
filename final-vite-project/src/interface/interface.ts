@@ -76,3 +76,18 @@ export interface ProfileFormData {
   email: string;
   phone: string;
 }
+
+export interface Item {
+  name: string;
+  price: number;
+  quantity: number;
+  inStock: boolean;
+}
+export interface Category {
+  category: string;
+  items: Item[];
+}
+
+export interface ProductCardProps {
+  item: Item;
+}

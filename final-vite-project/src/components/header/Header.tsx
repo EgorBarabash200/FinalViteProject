@@ -8,14 +8,16 @@ import { Dropdown, Space, Button } from 'antd'
 import { DownOutlined, UserOutlined, LogoutOutlined, AppstoreOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import ProfileModal from '../profileModal/ProfileModal'
+import { catalogStore } from '../../store/catalogStore';
 
 
 const Header = observer(() => {
   const { user, openLoginModal, logout, openProfileModal } = authStore;
   const [catalogOpen, setCatalogOpen] = useState(false);
 
-  const onCatalogMenuClick: MenuProps['onClick'] = (e) => {
-    console.log('Клик по пункту каталога: ', e);
+
+ const onCatalogMenuClick: MenuProps['onClick'] = (e) => {
+    catalogStore.setSelectedCategory(e.key); // e.key — это название категории
     setCatalogOpen(false);
   };
 
