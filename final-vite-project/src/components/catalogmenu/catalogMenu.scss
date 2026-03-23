@@ -1,4 +1,4 @@
-.catalog-menu {
+/*.catalog-menu {
   border-radius: 8px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   border: 1px solid #f0f0f0;
@@ -74,5 +74,27 @@
     padding: 0;
     border-radius: 8px;
     overflow: hidden;
+  }
+} */ 
+ .catalog-menu {
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+
+  .ant-menu-item {
+    padding: 10px 16px;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+
+    &:hover {
+      background-color: #f0f7ff;
+      color: #1890ff;
+    }
+
+    .anticon {
+      margin-right: 10px;
+      font-size: 16px;
+    }
   }
 }

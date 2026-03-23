@@ -59,7 +59,7 @@ export interface LoginData {
   password: string;
 }
 
-export interface ProfileData{
+export interface ProfileData {
   login: string;
   email: string;
   phone: string;
@@ -82,6 +82,7 @@ export interface Item {
   price: number;
   quantity: number;
   inStock: boolean;
+  image?: string;
 }
 export interface Category {
   category: string;

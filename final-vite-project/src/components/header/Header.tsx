@@ -17,7 +17,7 @@ const Header = observer(() => {
 
 
  const onCatalogMenuClick: MenuProps['onClick'] = (e) => {
-    catalogStore.setSelectedCategory(e.key); // e.key — это название категории
+    catalogStore.setSelectedCategory(e.key); 
     setCatalogOpen(false);
   };
 
@@ -46,11 +46,10 @@ const Header = observer(() => {
     <div className="headerDiv">
 
       <Dropdown
-        dropdownRender={() => (
+        popupRender={() => (
           <div className="catalog-dropdown-content">
             <CatalogMenu
               onClick={onCatalogMenuClick}
-              style={{ width: 320, maxHeight: '75vh' }}
             />
           </div>
         )}
