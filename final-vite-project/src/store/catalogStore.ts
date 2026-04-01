@@ -41,6 +41,7 @@ class CatalogStore {
   setSelectedCategory(categoryName: string) {
     this.selectedCategory = categoryName;
   }
+  
   get currentItems(): Item[] {
     if (!this.selectedCategory) return [];
     const category = this.categories.find(

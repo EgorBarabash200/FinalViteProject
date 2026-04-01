@@ -67,15 +67,13 @@
     }
   }
 }
+*/
 
-// Стили для выпадающего меню
 .catalog-dropdown {
-  .ant-dropdown-menu {
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-} */ 
+  box-shadow: '0 6px 16px rgba(0, 0, 0, 0.15)';
+  border-radius: '8px';
+}
+
  .catalog-menu {
   border-radius: 8px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);

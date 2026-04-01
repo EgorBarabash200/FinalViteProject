@@ -1,4 +1,4 @@
-.headerDiv {
+.header-div {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -92,6 +92,7 @@
     gap: 4px;
     padding: 8px 12px;
     border-radius: 6px;
+    margin: 0;
 
     &:hover {
         color: #1890ff;

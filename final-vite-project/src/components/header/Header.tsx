@@ -12,27 +12,26 @@ import { catalogStore } from '../../store/catalogStore';
 
 
 const Header = observer(() => {
-  const { user, openLoginModal, logout, openProfileModal } = authStore;
+  const { user, setStateModal, logout } = authStore;
   const [catalogOpen, setCatalogOpen] = useState(false);
-
 
  const onCatalogMenuClick: MenuProps['onClick'] = (e) => {
     catalogStore.setSelectedCategory(e.key); 
     setCatalogOpen(false);
   };
 
-  const userMenuItems: MenuProps['items'] = [
+  const menuProfile: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'index-menu-profile-1',
       label: (
-        <div className="user-menu-item" onClick={openProfileModal}>
+        <div className="user-menu-item" onClick={() => setStateModal("profile", true)}>
           <UserOutlined className="menu-icon" />
           <span>Профиль</span>
         </div>
       ),
     },
     {
-      key: '2',
+      key: 'index-menu-profile-2',
       label: (
         <div className="user-menu-item" onClick={logout}>
           <LogoutOutlined className="menu-icon" />
@@ -40,37 +39,29 @@ const Header = observer(() => {
         </div>
       ),
     },
-  ]
+  ];
 
   return (
-    <div className="headerDiv">
-
+    <div className="header-div">
       <Dropdown
+        trigger={['click']}
+        open={catalogOpen}
+        onOpenChange={setCatalogOpen}
+        overlayClassName="catalog-dropdown"
         popupRender={() => (
           <div className="catalog-dropdown-content">
-            <CatalogMenu
-              onClick={onCatalogMenuClick}
-            />
+            <CatalogMenu onClick={onCatalogMenuClick} />
           </div>
         )}
-        trigger={['click']}
-        placement="bottomLeft"
-        onOpenChange={setCatalogOpen}
-        open={catalogOpen}
-        overlayClassName="catalog-dropdown"
-        overlayStyle={{
-          boxShadow: '0 6px 16px rgba(0, 0, 0, 0.15)',
-          borderRadius: '8px'
-        }}
       >
         <Button
-          type="primary"
           className="catalog-button"
+          type="primary"
           icon={<AppstoreOutlined />}
         >
           <Space>
             Каталог
-            <DownOutlined className={`dropdown-arrow ${catalogOpen ? 'open' : ''}`} />
+            <DownOutlined className={`dropdown-arrow ${catalogOpen && 'open'}`} />
           </Space>
         </Button>
       </Dropdown>
@@ -82,16 +73,16 @@ const Header = observer(() => {
           {/* Десктопная версия */}
           <div className="desktop-user">
             <Dropdown
-              menu={{ items: userMenuItems }}
               placement="bottomRight"
               trigger={['click']}
+              menu={{ items: menuProfile }}
             >
-              <a onClick={(e) => e.preventDefault()} className="user-dropdown-trigger">
+              <p className="user-dropdown-trigger">
                 <Space>
-                  <span className="user-login">👤 {user.login}</span>
+                  <span className="user-login">{user.login}</span>
                   <DownOutlined className="dropdown-arrow" />
                 </Space>
-              </a>
+              </p>
             </Dropdown>
           </div>
           <div className="headerBasketSvg"></div>
@@ -99,7 +90,7 @@ const Header = observer(() => {
           {/* Мобильная версия для авторизованного пользователя */}
           <div className="mobile">
             <Dropdown
-              menu={{ items: userMenuItems }}
+              menu={{ items: menuProfile }}
               placement="bottomRight"
               trigger={['click']}
             >

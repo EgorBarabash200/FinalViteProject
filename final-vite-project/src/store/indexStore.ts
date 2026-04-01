@@ -34,20 +34,11 @@ class AuthStore {
     this.user = updatedUser;
     localStorage.setItem("userInfo", JSON.stringify(updatedUser));
   }
-  openLoginModal = () => {
-    this.stateModal.login = true;
-    this.stateModal.registr = false;
+
+  setStateModal = (nameModal:  "profile" | "login" | "registr", state: boolean) => {
+    this.stateModal[nameModal] = state;
   }
 
-  openRegistModal = () => {
-    this.stateModal.login = false;
-    this.stateModal.registr = true;
-  }
-  openProfileModal = () => {
-    this.stateModal.profile = true;
-    this.stateModal.login = false;
-    this.stateModal.registr = false;
-  }
   closeModals = () => {
     this.stateModal.login = false;
     this.stateModal.registr = false;
@@ -59,6 +50,7 @@ class AuthStore {
     this.user = null;
     localStorage.removeItem("userInfo");
   }
+  
   setLoginForm = (field: keyof LoginData, value: string) => {
     this.loginForm[field] = value;
   }
