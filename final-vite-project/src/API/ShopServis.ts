@@ -1,3 +1,4 @@
+import type { IDataCatalog } from "../interface/api";
 import type { ILogin, IRegist, ProfileFormData } from "../interface/interface";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -63,7 +64,7 @@ export const updateProfile = async (profileData: ProfileFormData) => {
         throw e;
     }
 }
-export const catalogShop = async () =>{
+export const catalogShop = async () => {
     try{
         const response = await fetch(`${apiUrl}/categories`,{
             method: 'GET',
@@ -72,8 +73,8 @@ export const catalogShop = async () =>{
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
-        console.log(data);
+        const data:IDataCatalog = await response.json();
+
         return data; 
     }catch(e){
         console.log(e);
