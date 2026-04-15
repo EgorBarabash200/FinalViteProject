@@ -1,14 +1,14 @@
+import type { LogModalProps } from '../../interface/interface';
 import FormOpAccunt from '../formOpAccunt/FormOpAccunt';
 import "./logModal.scss";
-import { authStore } from '../../store/indexStore';
 import { observer } from 'mobx-react-lite';
 
-const LogModal: React.FC = observer(() => {
+const LogModal = observer(({ closeModal, openRegistr }:LogModalProps) => {
 
   return (
-    <div className='mainModal active' onClick={()=>authStore.closeModals()}>
+    <div className='mainModal active' onClick={() => closeModal()}>
       <div className='modalContent' onClick={e => e.stopPropagation()}>
-        <FormOpAccunt />
+        <FormOpAccunt closeModal={() => closeModal()} openRegistr={openRegistr} />
       </div>
     </div>
   );

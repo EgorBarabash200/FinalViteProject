@@ -92,3 +92,13 @@ export interface Category {
 export interface ProductCardProps {
   item: Item;
 }
+
+export interface LogModalProps {
+  closeModal: () => void;
+  openRegistr: () => void;
+}
+
+export interface IValidFormLogin {
+    login: string
+    password: string
+}

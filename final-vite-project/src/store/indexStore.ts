@@ -30,20 +30,14 @@ class AuthStore {
       this.user = JSON.parse(dataUserLS);
     }
   }
-   updateUser = (updatedUser: User) => {
+
+  updateUser = (updatedUser: User) => {
     this.user = updatedUser;
     localStorage.setItem("userInfo", JSON.stringify(updatedUser));
   }
 
   setStateModal = (nameModal:  "profile" | "login" | "registr", state: boolean) => {
     this.stateModal[nameModal] = state;
-  }
-
-  closeModals = () => {
-    this.stateModal.login = false;
-    this.stateModal.registr = false;
-    this.stateModal.profile = false;
-    this.resetForms();
   }
 
   logout = () => {
@@ -59,11 +53,6 @@ class AuthStore {
   }
   setRepeatPassword = (value: string) => {
     this.repeatPassword = value;
-  }
-  get isLoginFormValid(): boolean {
-    const { login, password } = this.loginForm;
-    return login.length >= 6 && login.length <= 15 &&
-      password.length >= 6 && password.length <= 15;
   }
 
   get isRegistrationFormValid(): boolean {
