@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { catalogShop } from "../API/ShopServis";
 import type { Category, Item } from "../interface/interface";
 import type { IMenuItem } from "../interface/store";

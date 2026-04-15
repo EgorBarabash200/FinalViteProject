@@ -20,14 +20,14 @@ const FormRegistration: React.FC = observer(() => {
     validateEmail,
     register,
     closeModals,
-    openLoginModal
+    //openLoginModal
   } = authStore;
 
   const [api, contextHolder] = notification.useNotification();
 
   const handleCancel = () => {
     closeModals();
-    openLoginModal();
+    //openLoginModal();
   };
 
   const handlePhoneChange = (e : React.ChangeEvent<HTMLInputElement>) =>{

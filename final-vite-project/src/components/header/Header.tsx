@@ -5,7 +5,7 @@ import CatalogMenu from '../catalogmenu/CatalogMenu'
 import "./header.scss"
 import { authStore } from '../../store/indexStore'
 import { Dropdown, Space, Button } from 'antd'
-import { DownOutlined, UserOutlined, LogoutOutlined, AppstoreOutlined } from '@ant-design/icons'
+import { DownOutlined, UserOutlined, LogoutOutlined, AppstoreOutlined, ShoppingCartOutlined  } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import ProfileModal from '../profileModal/ProfileModal'
 import { catalogStore } from '../../store/catalogStore';
@@ -95,20 +95,20 @@ const Header = observer(() => {
               trigger={['click']}
             >
               <div className="mobile-user-section">
-                <div className="mobileOpen">👤</div>
+                <div className="mobileOpen"><UserOutlined /></div>
                 <div className="mobile-login">{user.login}</div>
               </div>
             </Dropdown>
-            <div className="mobileBasket">🛒</div>
+            <div className="mobileBasket"><ShoppingCartOutlined /></div>
           </div>
         </div>
       ) : (
         <>
-          <div className="headerOpenSvg" onClick={openLoginModal}></div>
+          <div className="headerOpenSvg" /*onClick={ openLoginModal} */></div> 
           <div className="headerBasketSvg"></div>
           <div className="mobile">
-            <div className="mobileOpen" onClick={openLoginModal}>👤</div>
-            <div className="mobileBasket">🛒</div>
+            <div className="mobileOpen" /*onClick={openLoginModal}*/><UserOutlined /></div>
+            <div className="mobileBasket"><ShoppingCartOutlined /></div>
           </div>
         </>
       )}

@@ -150,7 +150,7 @@ class AuthStore {
         duration: 4,
       });
       this.resetForms();
-      this.openLoginModal();
+      //this.openLoginModal();
     } catch (error) {
       notification.error({
         message: 'Ошибка регистрации',
