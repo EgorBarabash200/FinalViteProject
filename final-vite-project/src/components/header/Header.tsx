@@ -17,6 +17,8 @@ import ProfileModal from "../profileModal/ProfileModal";
 import { catalogStore } from "../../store/catalogStore";
 import LogModal from "../logModal/LogModal";
 import RegistModal from "../registModal/RegistModal";
+import BasketIcon from "../../icon/BasketIcon";
+
 
 const Header = observer(() => {
   const { user, setStateModal, logout } = authStore;
@@ -102,7 +104,9 @@ const Header = observer(() => {
               </p>
             </Dropdown>
           </div>
-          <div className="headerBasketSvg" />
+          <div className="headerBasketSvg">
+            <BasketIcon className="headerBasketSvg"/>
+          </div>
           {/* Мобильная версия для авторизованного пользователя */}
           <div className="mobile">
             <Dropdown

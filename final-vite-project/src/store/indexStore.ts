@@ -112,7 +112,7 @@ class AuthStore {
           duration: 4,
         });
         this.resetForms();
-        this.closeModals();;
+        //this.closeModals();;
       } else {
         throw new Error('Получены некорректные данные пользователя')
       }

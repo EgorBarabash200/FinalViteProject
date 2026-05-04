@@ -7,7 +7,7 @@ import type { ProfileFormData } from '../../interface/interface';
 import { updateProfile } from '../../API/ShopServis';
 
 const ProfileModal = observer(() => {
-  const { user, closeModals, stateModal } = authStore;
+  const { user, /*closeModals,*/ stateModal } = authStore;
   const [profileForm, setProfileForm] = useState<ProfileFormData>({
     login: '',
     email: '',
@@ -21,7 +21,8 @@ const ProfileModal = observer(() => {
   };
 
   const handleCancel = () => {
-    closeModals();
+    //closeModals();
+    authStore.setStateModal('profile', false)
   };
 
   const onFinish: FormProps<ProfileFormData>['onFinish'] = async (values: ProfileFormData) => {
@@ -47,7 +48,7 @@ const ProfileModal = observer(() => {
           duration: 3,
         });
 
-        closeModals();
+       // closeModals();
       }
     } catch (error) {
       console.error('Ошибка при обновлении профиля:', error);

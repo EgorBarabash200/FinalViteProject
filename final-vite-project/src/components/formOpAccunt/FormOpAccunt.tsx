@@ -5,6 +5,7 @@ import CustomBtn from "../ui/button/customBtn/CustomBtn";
 import { authStore } from "../../store/indexStore";
 import { observer } from "mobx-react-lite";
 import { notification } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 import type { LogModalProps } from "../../interface/interface";
 import { useState } from "react";
 import { postAuthorization } from "../../API/ShopServis";
@@ -53,7 +54,7 @@ const FormOpAccunt = observer(({ closeModal, openRegistr }: LogModalProps) => {
     <div className="mainForm">
       {contextHolder}
       <button className="close-button" onClick={closeModal}>
-        ×
+      <CloseOutlined />
       </button>
       <h2>Вход в аккаунт</h2>
       <LogInput

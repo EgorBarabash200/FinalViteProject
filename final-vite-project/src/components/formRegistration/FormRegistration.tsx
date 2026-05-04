@@ -3,41 +3,71 @@ import './formRegistration.scss';
 import { authStore } from '../../store/indexStore';
 import { observer } from 'mobx-react-lite';
 import { notification } from 'antd';
+import { CloseOutlined } from "@ant-design/icons";
 import CustomBtn from '../ui/button/customBtn/CustomBtn';
+import type { LogModalProps } from '../../interface/interface';
+import { useState } from 'react';
+import { postRegistration } from '../../API/ShopServis';
 
-const FormRegistration: React.FC = observer(() => {
+const FormRegistration = observer(({ closeModal, openRegistr }: LogModalProps) => {
   const {
-    registrationForm,
-    repeatPassword,
+    //registrationForm,
+    // repeatPassword,
     stateCheckLogin,
-    emailError,
-    stateLoad,
+    //emailError,
+    // stateLoad,
     isRegistrationFormValid,
     passwordsMatch,
     setRegistrationForm,
-    setRepeatPassword,
+    //setRepeatPassword,
     checkLoginAvailability,
     validateEmail,
-    register,
-    closeModals,
+    //register,
+    //closeModals,
     //openLoginModal
   } = authStore;
 
-  const [api, contextHolder] = notification.useNotification();
+  const { updateUser } = authStore;
+  const [stateFormRegist, setStateFormRegist] = useState({ login: '', password: '', email: '', phone: '' })
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [stateLoad, setStateLoad] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [, contextHolder] = notification.useNotification();
+  const registUser = async () => {
+    try {
+      await postRegistration(stateFormRegist);
+      notification.success({
+        message: 'Регистрация успешна!',
+        description: 'Теперь вы можете войти в свой аккаунт',
+        placement: 'top',
+        duration: 4,
+      });
+    } catch (e) {
+      notification.error({
+        message: 'Ошибка регистрации',
+        description: 'Не удалось зарегистрироваться. Попробуйте еще раз.',
+        placement: 'top',
+        duration: 4,
+      });
+      console.error('Ошибка регистрации:', e);
+    } finally {
+      setStateLoad(false);
+    }
+  }
 
   const handleCancel = () => {
-    closeModals();
+    //closeModals();
     //openLoginModal();
   };
 
-  const handlePhoneChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const onlyNumbers = value.replace(/[^\d]/g, '');
-    const truncated = onlyNumbers.slice(0,11);  
+    const truncated = onlyNumbers.slice(0, 11);
     setRegistrationForm('phone', truncated);
   }
 
-   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const filteredValue = value.replace(/[^a-zA-Z0-9@.\-]/g, '');
     validateEmail(filteredValue);
@@ -46,7 +76,9 @@ const FormRegistration: React.FC = observer(() => {
   return (
     <div className='formRegistration'>
       {contextHolder}
-      <button className="close-button" onClick={closeModals}>×</button>
+      <button className="close-button" onClick={closeModals}>
+        <CloseOutlined />
+      </button>
       <h2>Регистрация</h2>
 
       <div className="input-field">
@@ -117,9 +149,9 @@ const FormRegistration: React.FC = observer(() => {
 
       <div className='btnRegistForm'>
         <CustomBtn
-          onClick={register}
+          onClick={registUser}
           disabled={!isRegistrationFormValid}
-          loading={stateLoad.registr}
+          loading={stateLoad}
         >
           Регистрация
         </CustomBtn>
