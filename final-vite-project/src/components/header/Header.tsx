@@ -153,7 +153,7 @@ const Header = observer(() => {
           openRegistr={openRegistr}
         />
       )}
-      {stateModalRegistr && <RegistModal />}
+      {stateModalRegistr && <RegistModal closeModal={() => setStateModalRegistr(false)} />}
     </div>
   );
 });

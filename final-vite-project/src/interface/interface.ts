@@ -69,6 +69,7 @@ export interface User {
   login: string;
   email?: string;
   phone?: string;
+  password?: string;
 }
 
 export interface ProfileFormData {
@@ -96,6 +97,10 @@ export interface ProductCardProps {
 export interface LogModalProps {
   closeModal: () => void;
   openRegistr: () => void;
+}
+
+export interface RegModalProps {
+  closeModal: () => void;
 }
 
 export interface IValidFormLogin {

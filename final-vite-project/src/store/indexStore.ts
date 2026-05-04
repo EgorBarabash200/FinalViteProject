@@ -66,21 +66,6 @@ class AuthStore {
     return isLoginValid && isPasswordValid && isPasswordMatch && isEmailValid && isPhoneValid;
   }
 
-  get passwordsMatch(): boolean {
-    return this.registrationForm.password === this.repeatPassword;
-  }
-  checkLoginAvailability = async (login: string) => {
-    this.setRegistrationForm('login', login);
-
-    if (login.length >= 6 && login.length <= 15) {
-      try {
-        const res = await checkLogin(login);
-        this.stateCheckLogin = res.result;
-      } catch (error) {
-        console.error('Error checking login:', error);
-      }
-    }
-  }
   validateEmail = (email: string) => {
     this.setRegistrationForm('email', email);
 

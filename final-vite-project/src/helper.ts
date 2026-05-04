@@ -1,4 +1,4 @@
-import type { IValidFormLogin, IValidFormRegist  } from "./interface/interface";
+import type { IValidFormLogin, User  } from "./interface/interface";
 
 export const isLoginFormValid = ({ login, password }: IValidFormLogin) => {
   return (
@@ -28,18 +28,23 @@ export const validateEmail = (email: string): string => {
 };
 
 export const isRegistrationFormValid = (
-  form: IValidFormRegist,
-  loginTaken: boolean,
+  form: User,
+  loginError: boolean,
   emailError: string,
   passwordsMatch: boolean
 ) => {
+  console.log('isRegistrationFormValid')
+  const password = form.password ? form.password : '';
+  const email = form.email ? form.email : '';
+  const phone = form.phone ? form.phone : '';
+
   return (
     isLoginValid(form.login) &&
-    !loginTaken &&
-    isPasswordValid(form.password) &&
+    !loginError &&
+    isPasswordValid(password) &&
     passwordsMatch &&
-    form.email.length > 0 &&
+    email.length > 0 &&
     !emailError &&
-    isPhoneValid(form.phone)
+    isPhoneValid(phone)
   );
 };

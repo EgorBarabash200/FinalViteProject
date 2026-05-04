@@ -1,13 +1,13 @@
 import "./registModal.scss";
-import FormRegistration from '../formRegistration/FormRegistration';
-import { authStore } from '../../store/indexStore';
-import { observer } from 'mobx-react-lite';
+import FormRegistration from "../formRegistration/FormRegistration";
+import { observer } from "mobx-react-lite";
+import type { RegModalProps } from "../../interface/interface";
 
-const RegistModal: React.FC = observer(() => {
+const RegistModal = observer(({ closeModal }: RegModalProps) => {
   return (
-    <div className='mainRegistModal active' onClick={()=>authStore.closeModals()}>
-      <div className='modalRegistContent' onClick={e => e.stopPropagation()}>
-        <FormRegistration />
+    <div className="mainRegistModal active" onClick={() => closeModal()}>
+      <div className="modalRegistContent" onClick={(e) => e.stopPropagation()}>
+        <FormRegistration closeModal={closeModal} />
       </div>
     </div>
   );
